@@ -1,0 +1,191 @@
+type Query {
+    #HistorialUbicacion
+    obtenerHistorialPorVoluntario(voluntarioId: ID!): [HistorialUbicacion!]!
+    obtenerTodosHistoriales: [HistorialUbicacion!]!
+
+    #SolicitudAyuda
+    obtenerSolicitudesPorVoluntario(voluntarioId: ID!): [SolicitudAyuda!]!
+    obtenerTodasSolicitudes: [SolicitudAyuda!]!
+
+    #ReporteVoluntarios
+    generarReporteVoluntarios(
+        voluntarioId: ID
+    ): ReporteVoluntarios!
+
+    #ReporteDashboard
+    reporteDashboard: ReporteDashboard
+}
+
+type Mutation {
+    #HistorialUbicacion
+    crearHistorialUbicacion(
+        voluntarioId: ID!
+        lat: Float!
+        lon: Float!
+    ): HistorialUbicacion!
+
+    #SolicitudAyuda
+    crearSolicitudAyuda(
+        tipo: String!
+        voluntarioId: ID!
+        descripcion: String!
+        estado: String!
+        nivelEmergencia: NivelEmergencia!
+        latitud: Float!
+        longitud: Float!
+        fecha: String!
+        ciVoluntariosAcudir: [Int!]!
+    ): SolicitudAyuda!
+
+    actualizarSolicitudEnProgreso(
+        id: ID!
+        nuevosCIs: [Int!]!  # Requiere al menos 1 CI
+    ): SolicitudAyuda!
+
+    marcarSolicitudRespondida(
+        id: ID!
+    ): SolicitudAyuda!
+
+    #ReporteDashboard
+    actualizarDashboard: Boolean
+    insertarDatosPrueba: ReporteDashboard
+}
+
+type HistorialUbicacion {
+    id: ID!
+    voluntarioId: ID!
+    lat: Float!
+    lon: Float!
+    fecha: String!
+}
+
+enum NivelEmergencia {
+    BAJO
+    MEDIO
+    ALTO
+}
+
+type SolicitudAyuda {
+    id: ID!
+    tipo: String!
+    voluntarioId: ID!
+    descripcion: String!
+    estado: String!
+    nivelEmergencia: NivelEmergencia!
+    latitud: Float!
+    longitud: Float!
+    fecha: String!
+    fechaRespondida: String
+    ciVoluntariosAcudir: [Int!]!
+}
+
+type ReporteVoluntarios {
+    historialSolicitudes: [SolicitudAyuda!]!
+    ubicacionesUltimoMes: [HistorialUbicacion!]!
+}
+
+type ReporteDashboard {
+    id: ID
+    ultimaActualizacion: String
+    fuenteDatos: String
+    totalTestsRealizados: Int
+    testsUltimas24Horas: Int
+
+    necesidad: Necesidad
+    capacitacion: Capacitacion
+    promedioFisico: Promedio
+    promedioEmocional: Promedio
+    distribucionEstres: DistribucionEstres
+
+    ultimos5VoluntariosRegistrados: [VoluntarioRegistro]
+    ultimos5PedidosAyuda: [PedidoAyuda]
+    ultimos5TestsRecibidos: [TestRecibido]
+    ultimas5CapacitacionesAsignadas: [CapacitacionAsignada]
+    ultimas5NecesidadesDetectadas: [NecesidadDetectada]
+}
+
+type Necesidad {
+    valor: Float
+    tipo: String
+}
+
+type Capacitacion {
+    valor: Float
+    tipo: String
+}
+
+type Promedio {
+    valor: Float
+    sintomaFrecuente: String
+}
+
+type DistribucionEstres {
+    bajo: NivelEstres
+    moderado: NivelEstres
+    alto: NivelEstres
+    tendencia: String
+}
+
+type NivelEstres {
+    porcentaje: Float
+    cantidadVoluntarios: Int
+}
+
+type VoluntarioRegistro {
+    idVoluntario: String
+    nombre: String
+    fechaRegistro: String
+    disponibilidad: String
+}
+
+type PedidoAyuda {
+    idVoluntario: String
+    tipo: String
+    fechaRegistro: String
+    nivel: String
+}
+
+type TestRecibido {
+    idTest: String
+    categoria: String
+    nombre: String
+    descripcion: String
+    preguntas: [PreguntaTest]
+}
+
+type PreguntaTest {
+    idPregunta: String
+    textoPregunta: String
+    distribucionRespuestas: [DistribucionRespuesta]
+    detalleRespuestas: [DetalleRespuesta]
+}
+
+type DistribucionRespuesta {
+    opcion: String
+    cantidad: Int
+}
+
+type DetalleRespuesta {
+    fecha: String
+    idVoluntario: String
+    respuesta: String
+}
+
+type CapacitacionAsignada {
+    idCapacitacion: String
+    nombre: String
+    descripcion: String
+    estado: String
+    fechaAsignacion: String
+    fechaFinalizacion: String
+    voluntariosAsignados: [String]
+}
+
+type NecesidadDetectada {
+    idNecesidad: String
+    tipo: String
+    descripcion: String
+    urgencia: String
+    voluntariosAfectados: [String]
+    fechaDeteccion: String
+}
