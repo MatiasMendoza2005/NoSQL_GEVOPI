@@ -14,6 +14,7 @@ type Query {
 
     #ReporteDashboard
     reporteDashboard: ReporteDashboard
+    reportesRecientes(dias: Int!): [ReporteDashboard]
 }
 
 type Mutation {
@@ -48,7 +49,6 @@ type Mutation {
 
     #ReporteDashboard
     actualizarDashboard: Boolean
-    insertarDatosPrueba: ReporteDashboard
 }
 
 type HistorialUbicacion {
@@ -85,36 +85,23 @@ type ReporteVoluntarios {
 }
 
 type ReporteDashboard {
-    id: ID
+    id: ID!
     ultimaActualizacion: String
     fuenteDatos: String
     totalTestsRealizados: Int
     testsUltimas24Horas: Int
 
-    necesidad: Necesidad
-    capacitacion: Capacitacion
-    promedioFisico: Promedio
-    promedioEmocional: Promedio
-    distribucionEstres: DistribucionEstres
-
     ultimos5VoluntariosRegistrados: [VoluntarioRegistro]
     ultimos5PedidosAyuda: [PedidoAyuda]
     ultimos5TestsRecibidos: [TestRecibido]
-    ultimas5CapacitacionesAsignadas: [CapacitacionAsignada]
-    ultimas5NecesidadesDetectadas: [NecesidadDetectada]
 }
 
-type Necesidad {
+type PromedioFisico {
     valor: Float
-    tipo: String
+    sintomaFrecuente: String
 }
 
-type Capacitacion {
-    valor: Float
-    tipo: String
-}
-
-type Promedio {
+type PromedioEmocional {
     valor: Float
     sintomaFrecuente: String
 }
@@ -132,21 +119,21 @@ type NivelEstres {
 }
 
 type VoluntarioRegistro {
-    idVoluntario: String
+    idVoluntario: ID!
     nombre: String
     fechaRegistro: String
     disponibilidad: String
 }
 
 type PedidoAyuda {
-    idVoluntario: String
+    idVoluntario: ID!
     tipo: String
     fechaRegistro: String
     nivel: String
 }
 
 type TestRecibido {
-    idTest: String
+    idTest: ID!
     categoria: String
     nombre: String
     descripcion: String
@@ -154,7 +141,7 @@ type TestRecibido {
 }
 
 type PreguntaTest {
-    idPregunta: String
+    idPregunta: ID!
     textoPregunta: String
     distribucionRespuestas: [DistribucionRespuesta]
     detalleRespuestas: [DetalleRespuesta]
@@ -167,25 +154,25 @@ type DistribucionRespuesta {
 
 type DetalleRespuesta {
     fecha: String
-    idVoluntario: String
+    idVoluntario: ID!
     respuesta: String
 }
 
 type CapacitacionAsignada {
-    idCapacitacion: String
+    idCapacitacion: ID!
     nombre: String
     descripcion: String
     estado: String
     fechaAsignacion: String
     fechaFinalizacion: String
-    voluntariosAsignados: [String]
+    voluntariosAsignados: [ID]
 }
 
 type NecesidadDetectada {
-    idNecesidad: String
+    idNecesidad: ID!
     tipo: String
     descripcion: String
     urgencia: String
-    voluntariosAfectados: [String]
+    voluntariosAfectados: [ID]
     fechaDeteccion: String
 }

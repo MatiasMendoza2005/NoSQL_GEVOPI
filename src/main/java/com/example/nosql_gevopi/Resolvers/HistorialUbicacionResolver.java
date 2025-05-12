@@ -22,9 +22,9 @@ public class HistorialUbicacionResolver {
 
     @MutationMapping
     public HistorialUbicacion crearHistorialUbicacion(
-            @Argument String voluntarioId,
-            @Argument Double lat,
-            @Argument Double lon) {
+            @Argument ("voluntarioId") String voluntarioId,
+            @Argument ("lat")Float lat,
+            @Argument ("lon")Float lon) {
 
         HistorialUbicacion historial = new HistorialUbicacion();
         historial.setVoluntarioId(voluntarioId);

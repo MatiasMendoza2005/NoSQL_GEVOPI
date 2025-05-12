@@ -22,7 +22,6 @@ public class ReporteDashboard {
     private Capacitacion capacitacion;
     private PromedioFisico promedioFisico;
     private PromedioEmocional promedioEmocional;
-    private DistribucionEstres distribucionEstres;
 
     private List<VoluntarioRegistro> ultimos5VoluntariosRegistrados;
     private List<PedidoAyuda> ultimos5PedidosAyuda;
@@ -60,24 +59,6 @@ public class ReporteDashboard {
     public static class PromedioEmocional {
         private Double valor;
         private String sintomaFrecuente;
-    }
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Data
-    public static class DistribucionEstres {
-        private NivelEstres bajo;
-        private NivelEstres moderado;
-        private NivelEstres alto;
-        private String tendencia;
-    }
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Data
-    public static class NivelEstres {
-        private Double porcentaje;
-        private Integer cantidadVoluntarios;
     }
 
     @AllArgsConstructor

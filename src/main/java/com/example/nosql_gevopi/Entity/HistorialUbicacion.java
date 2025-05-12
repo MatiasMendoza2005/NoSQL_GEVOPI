@@ -16,8 +16,8 @@ public class HistorialUbicacion {
     private String id;
 
     private String voluntarioId;
-    private Double lat;
-    private Double lon;
+    private Float lat;
+    private Float lon;
     private LocalDateTime fecha;
 
     public HistorialUbicacion() {}
