@@ -33,7 +33,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Configuración específica para GraphQL
-        config.setAllowedOrigins(List.of("http://localhost:3001")); // URL de tu frontend
+        config.setAllowedOrigins(List.of("http://localhost:3002")); // URL de tu frontend
         config.setAllowedMethods(List.of("GET", "POST", "OPTIONS")); // Métodos necesarios para GraphQL
         config.setAllowedHeaders(List.of("*")); // Headers permitidos
         config.setAllowCredentials(true); // Permitir credenciales (cookies, tokens)

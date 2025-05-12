@@ -76,7 +76,7 @@ type SolicitudAyuda {
     longitud: Float!
     fecha: String!
     fechaRespondida: String
-    ciVoluntariosAcudir: [Int!]!
+    ciVoluntariosAcudir: [Int!]
 }
 
 type ReporteVoluntarios {
